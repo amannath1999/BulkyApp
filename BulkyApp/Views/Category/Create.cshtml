@@ -6,17 +6,31 @@
             <h2 class="text-primary">Create Category</h2>
             <hr/>
         </div>
+
+        @* All means that it shows all the model related errors and non model errors in the summary.
+        <div asp-validation-summary="All"></div> *@
+
+        @* ModelOnly means that it shows only the model related errors at the concerned model i.e. at Name field. Non model errors will be continued to be shown in summary.*@
+        <div asp-validation-summary="ModelOnly"></div>
+
+        @* None means that none of the errors be it model level or non model level, wont be shown in summary.
+        <div asp-validation-summary="None"></div> *@
         <div class="mb-3 row p-1">
-            <label>Category Name</label>
-            <input type="text" class="form-control" />
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3 row p-1">
-            <label>Display Order</label>
-            <input type="text" class="form-control" />
+            <label asp-for="DisplayOrder"></label>
+            <input asp-for="DisplayOrder" type="text" class="form-control" />
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
         </div>
         <div class="row">
             <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-primary form-control">Create</button>
+@*                <button type="submit" asp-action="InsertIntoDB" class="btn btn-primary form-control">Create</button>
+ *@            
+               <button type="submit" class="btn btn-primary form-control">Create</button>
+            
             </div>
             <div class="col-6" col-md-3>
                 <a asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary form-control">Back to List</a>
@@ -24,3 +38,13 @@
         </div>
     </div>
 </form>
+
+@*when u add the below script section, since it only contains .js files, it means u have just added 
+client side validations.
+*@
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
