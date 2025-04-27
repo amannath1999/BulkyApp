@@ -48,6 +48,7 @@ namespace BulkyApp.Controllers
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
                 //return View("Index");
+                TempData["success"] = "Category created successfully!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -67,5 +68,75 @@ namespace BulkyApp.Controllers
         //    return View();
 
         //}
+
+        public IActionResult Edit(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            //Category? category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Category? category1 = _db.Categories.Find(id);
+            //Category? category2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+
+            if(category1 == null)
+            {
+                return NotFound();
+            }
+            return View(category1);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(obj);
+                _db.SaveChanges();
+                //return View("Index");
+                TempData["success"] = "Category updated successfully!";
+                return RedirectToAction("Index");
+            }
+            return View();
+
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            //Category? category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Category? category1 = _db.Categories.Find(id);
+            //Category? category2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+
+            if (category1 == null)
+            {
+                return NotFound();
+            }
+            return View(category1);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
+        {
+            Category? category1 = _db.Categories.Find(id);
+
+            if (category1 == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(category1);
+            _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully!";
+            return RedirectToAction("Index");
+           
+        }
     }
 }
