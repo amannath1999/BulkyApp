@@ -1,0 +1,51 @@
+﻿@page
+@model BulkyWebApp_Razor.Pages.Categories.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Category</h2>
+            <hr />
+        </div>
+
+        @* All means that it shows all the model related errors and non model errors in the summary.*@
+        <div asp-validation-summary="All"></div> 
+
+        @* ModelOnly means that it shows only the model related errors at the concerned model i.e. at Name field. Non model errors will be continued to be shown in summary.*@
+        @* <div asp-validation-summary="ModelOnly"></div> *@
+
+        @* None means that none of the errors be it model level or non model level, wont be shown in summary.
+        <div asp-validation-summary="None"></div> *@
+        <div class="mb-3 row p-1">
+            <label asp-for="Category.Name"></label>
+            <input asp-for="Category.Name" type="text" class="form-control" />
+            <span asp-validation-for="Category.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="Category.DisplayOrder"></label>
+            <input asp-for="Category.DisplayOrder" type="text" class="form-control" />
+            <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                @*                <button type="submit" asp-action="InsertIntoDB" class="btn btn-primary form-control">Create</button>
+ *@            
+               <button type="submit" class="btn btn-primary form-control">Create</button>
+
+            </div>
+            <div class="col-6" col-md-3>
+                <a asp-page="/categories/index" class="btn btn-outline-secondary form-control">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*when u add the below script section, since it only contains .js files, it means u have just added 
+client side validations.
+*@
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
